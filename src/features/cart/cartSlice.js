@@ -16,20 +16,20 @@ payload: {name: name,
 } 
 
 const initialCart = {};
-export const cartReducer = (cart = initialCart, action) => {
+export const cartReducer = (cart = initialCart, action) => { // A reducer will only include in its returned state the properties that are explicitly deconstructed from the action payload and added to the new object. If a property (like `img`) is not deconstructed and not added to the new object, it will not appear in the reducer’s returned state. The reducer controls exactly what data is stored in its slice of state.
   switch (action.type) {
     case 'cart/addItem': {
       const { name, price } = action.payload;
 
       // if the item already exists, increase the quantity by 1, otherwise set it to 1
       const quantity = cart[name] ? cart[name].quantity + 1 : 1;
-      const newItem = { price, quantity };
+      const newItem = { price, quantity }; //SHORT HAND FOR CREATING AN OBJECT!!
 
       // Add the new item to the cart (or replace it if it existed already)
       return { 
         ...cart, 
-        [name]: newItem 
-      };
+        [name]: newItem //[name] is called property key => "Hello World Hat": { price: 23.99, quantity: 1 } IMPORTANT : the word key always means the property name of the object. 
+      };// The square brackets [name] are used for computed property names in JavaScript objects. [name] means: use the value of the name variable as the key in the object.
     }
     case 'cart/changeItemQuantity': {
       const { name, newQuantity } = action.payload;
